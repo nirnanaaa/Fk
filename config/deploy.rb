@@ -31,7 +31,7 @@ namespace :deploy do
     on roles(:app), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       within current_path do
-        execute "PUMA_PATH=#{current_path} RAILS_ENV=production bundle exec puma --dir #{release_path} -C #{release_path}/config/puma.rb -e production"
+        execute "cd #{current_path}; PUMA_PATH=#{current_path} RAILS_ENV=production bundle exec puma --dir #{current_path} -C #{current_path}/config/puma.rb -e production"
       end
     end
   end
