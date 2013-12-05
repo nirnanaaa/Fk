@@ -1,3 +1,4 @@
+require 'bundler/capistrano'
 app = 'fk'
 set :application, app
 set :repo_url, 'https://github.com/nirnanaaa/Fk.git'
@@ -23,7 +24,9 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 set :default_env, { PUMA_PATH: current_path }
 # set :keep_releases, 5
-
+# after "deploy:setup" do
+#   run "cd #{current_path} && bundle install"
+# end
 namespace :deploy do
 
   desc 'Restart application'

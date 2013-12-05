@@ -23,3 +23,4 @@ gem 'puma'
 gem 'rvm-capistrano', group: :development
 gem 'capistrano-helpers', group: :development
 gem 'capistrano', group: :development
+gem 'capistrano-bundler', group: :development
