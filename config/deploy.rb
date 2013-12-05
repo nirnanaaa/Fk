@@ -31,7 +31,7 @@ namespace :deploy do
   desc "Start the application"
     task :start do
       on roles(:app), in: :sequence do
-        execute "cd #{current_path} && BIND_PATH=#{shared_path} RAILS_ENV=production bundle exec puma -b 'unix://#{current_path}/tmp/sockets/homepage.socket' -S #{shared_path}/puma.state --control 'unix://#{shared_path}/pumactl.sock' -C #{current_path}/config/puma.rb", :pty => false
+        execute "cd #{current_path} && BIND_PATH=#{shared_path} RAILS_ENV=production bundle exec puma -C #{current_path}/config/puma.rb", :pty => false
       end
     end
  
@@ -45,7 +45,7 @@ namespace :deploy do
         on roles(:app), in: :groups, limit: 3, wait: 10 do
           # Here we can do anything such as:
           within current_path do
-            execute "cd #{current_path} && RAILS_ENV=production bundle exec pumactl -S #{shared_path}/puma.state restart"
+            execute "cd #{current_path} && RAILS_ENV=production bundle exec pumactl  -C #{current_path}/config/puma.rb restart"
           end
           
         end
