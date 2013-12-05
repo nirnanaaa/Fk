@@ -23,3 +23,6 @@ gem 'puma'
 gem 'rvm-capistrano', group: :development
 gem 'capistrano', group: :development
 gem 'capistrano-bundler', group: :development
+
+gem 'unf'
+  gem 'asset_sync'
