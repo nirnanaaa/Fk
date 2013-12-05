@@ -1,4 +1,4 @@
-require 'bundler/capistrano'
+
 app = 'fk'
 set :application, app
 set :repo_url, 'https://github.com/nirnanaaa/Fk.git'
