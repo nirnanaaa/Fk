@@ -31,7 +31,7 @@ pidfile "#{application_path}/tmp/pids/puma.pid"
 # Use “path” as the file to store the server info state. This is
 # used by “pumactl” to query and control the server.
 #
-state_path "#{application_path}/tmp/pids/puma.state"
+#state_path "#{application_path}/tmp/pids/puma.state"
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
 # (“append”) specifies whether the output is appended, the default is
@@ -59,7 +59,7 @@ stdout_redirect "#{application_path}/log/puma.stdout.log", "#{application_path}/
 # The default is “tcp://0.0.0.0:9292”.
 #
 #bind 'tcp://0.0.0.0:9393'
-bind "unix://#{application_path}/tmp/sockets/homepage.socket"
+#bind "unix://#{application_path}/tmp/sockets/homepage.socket"
 
 # Instead of “bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'” you
 # can also use the “ssl_bind” option.
@@ -109,6 +109,6 @@ bind "unix://#{application_path}/tmp/sockets/homepage.socket"
 # Check out https://github.com/puma/puma/blob/master/lib/puma/app/status.rb
 # to see what the app has available.
 #
-activate_control_app "unix:///#{application_path}/tmp/pumactl.sock"
+#activate_control_app "unix:///srv/web/fk/shared/tmp/pumactl.sock"
 # activate_control_app 'unix:///var/run/pumactl.sock', { auth_token: '12345' }
 # activate_control_app 'unix:///var/run/pumactl.sock', { no_token: true }

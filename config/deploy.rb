@@ -28,16 +28,46 @@ set :default_env, { PUMA_PATH: current_path }
 #   run "cd #{current_path} && bundle install"
 # end
 namespace :deploy do
-
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      within current_path do
-        execute "cd #{current_path}; PUMA_PATH=#{current_path} RAILS_ENV=production bundle exec puma --dir #{current_path} -C #{current_path}/config/puma.rb -e production"
+  desc "Start the application"
+    task :start do
+      on roles(:app), in: :sequence do
+        execute "cd #{current_path} && BIND_PATH=#{shared_path} RAILS_ENV=production bundle exec puma -b 'unix://#{current_path}/tmp/sockets/homepage.socket' -S #{shared_path}/puma.state --control 'unix://#{shared_path}/pumactl.sock' -C #{current_path}/config/puma.rb", :pty => false
       end
     end
-  end
+ 
+    # desc "Stop the application"
+    # task :stop do
+    #   run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{shared_path}/puma.state stop"
+    # end
+ 
+    desc "Restart the application"
+    task :restart do
+        on roles(:app), in: :groups, limit: 3, wait: 10 do
+          # Here we can do anything such as:
+          within current_path do
+            execute "cd #{current_path} && RAILS_ENV=production bundle exec pumactl -S #{shared_path}/puma.state restart"
+          end
+          
+        end
+        
+      end
+ 
+
+ 
+    # desc "Status of the application"
+    # task :status, :roles => :app, :except => { :no_release => true } do
+    #   run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{shared_path}/puma.state stats"
+    # end
+    
+  # desc 'Restart application'
+  # task :restart do
+  #   on roles(:app), in: :groups, limit: 3, wait: 10 do
+  #     # Here we can do anything such as:
+  #     within current_path do
+  #       execute "cd #{current_path}; PUMA_PATH=#{current_path} RAILS_ENV=production bundle exec puma -C #{current_path}/config/puma.rb -e production"
+  #     end
+  #   end
+  # end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
