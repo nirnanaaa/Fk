@@ -19,4 +19,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
 
 gem 'puma'
+
+gem 'rvm-capistrano', group: :development
+gem 'capistrano-helpers', group: :development
 gem 'capistrano', group: :development
